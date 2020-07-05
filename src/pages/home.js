@@ -10,7 +10,6 @@ export class home extends Component {
     componentDidMount(){
         axios.get('/screams')
         .then(res => {
-            console.log(res.data)
             this.setState({
                 screams: res.data
             })
