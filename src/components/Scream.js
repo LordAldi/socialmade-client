@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import withSyles from '@material-ui/core/styles/withStyles'
+import withStyles from '@material-ui/core/styles/withStyles'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import PropTypes from 'prop-types'
+import DeleteScream from './DeleteScream'
 
 //Mui stuff
 import Card from '@material-ui/core/Card';
@@ -22,6 +23,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
 const styles = {
     card: {
+        position: 'relative',
         display:'flex',
         marginBottom: 20
     },
@@ -51,7 +53,8 @@ class Scream extends Component {
 
     render() {
         dayjs.extend(relativeTime)
-        const {classes, scream : { body,createdAt,userImage,userHandle,screamId, likeCount, commentCount}, user: {authenticated}} = this.props 
+        const {classes, scream : { body,createdAt,userImage,userHandle,screamId, likeCount, commentCount}, 
+        user: {authenticated, credentials: {handle}}} = this.props 
         //const classes = this.props.classes
         const likeButton = !authenticated ? (
             <MyButton tip='Like'>
@@ -70,6 +73,9 @@ class Scream extends Component {
                 </MyButton>
             )
         )
+        const deleteButton = authenticated && userHandle === handle ? (
+            <DeleteScream screamId ={screamId}/>
+        ): null
         return (
             <Card className={classes.card}>
                 <CardMedia 
@@ -87,6 +93,7 @@ class Scream extends Component {
                     color='primary'>
                         {userHandle}
                     </Typography>
+                    {deleteButton}
                     <Typography variant='body2' color="textSecondary">
                         {dayjs(createdAt).fromNow()}
                     </Typography>
@@ -123,4 +130,4 @@ const mapActionsToProps =  {
     unlikeScream
 }
 
-export default connect(mapStateToProps,mapActionsToProps)(withSyles(styles)(Scream))
+export default connect(mapStateToProps,mapActionsToProps)(withStyles(styles)(Scream))
