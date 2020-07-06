@@ -19,7 +19,6 @@ import formCss from '../styles/form.json'
 
 const styles = (theme)=>{
     
-    console.log(theme)
     return ({
     ...formCss
     })
@@ -37,7 +36,7 @@ class signup extends Component {
             errors: {}
         }
     }
-    componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps.UI.errors){
             this.setState({errors: nextProps.UI.errors})
         }
@@ -155,8 +154,7 @@ class signup extends Component {
 signup.propTypes = {
     classes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
-    UI: PropTypes.object.isRequired,
-    logoutUser: PropTypes.func.isRequired
+    UI: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) =>({

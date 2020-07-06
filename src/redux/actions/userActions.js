@@ -11,8 +11,6 @@ export const loginUser = (userData, history) => (dispatch) =>{
             history.push('/')
         })
         .catch((err) => {
-            console.log('error di catch7')
-            console.log(err.response.data)
             dispatch({
                 type: SET_ERRORS,
                 payload: err.response.data
@@ -44,8 +42,6 @@ export const signupUser = (newUserData, history) => (dispatch) =>{
             history.push('/')
         })
         .catch((err) => {
-            console.log('error di catch7')
-            console.log(err.response.data)
             dispatch({
                 type: SET_ERRORS,
                 payload: err.response.data
@@ -63,8 +59,6 @@ export const uploadImage = (formData) =>(dispatch)=> {
     dispatch({type: LOADING_USER})
     axios.post('/user/image', formData)
     .then(()=>{
-        console.log('masuk')
-        console.log(getUserData())
         dispatch(getUserData())
     })
     .catch(err => console.log(err))

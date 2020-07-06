@@ -15,7 +15,7 @@ import DeleteOutline from '@material-ui/icons/DeleteOutline'
 import {connect} from 'react-redux'
 import {deleteScream} from '../redux/actions/dataActions'
 
-import formCss from '../styles/form.json'
+// import formCss from '../styles/form.json'
 
 const styles = {
     deleteButton: {

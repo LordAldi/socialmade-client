@@ -6,7 +6,7 @@ const initialState = {
     loading: false
 }
 export default function(state=initialState, action){
-    let index
+    let index, nextState
     switch(action.type){
         case LOADING_DATA:
             return{
@@ -22,31 +22,23 @@ export default function(state=initialState, action){
         case LIKE_SCREAM:
         case UNLIKE_SCREAM:
             index = state.screams.findIndex((scream)=>scream.screamId === action.payload.screamId)
-            // console.log(index)
-            // state.screams.splice(index, 1)
-            
-            const nextState = produce(state, draftState => {
+            nextState = produce(state, draftState => {
                 draftState.screams[index].likeCount = action.payload.likeCount
             })
-            console.log(nextState)
-            // state.screams[index] = action.payload
             return nextState
         case DELETE_SCREAM:
-            // index = state.screams.findIndex(scream => scream.screamId === action.payload.screamId)
-            
-            state.screams.splice(index, 1)
-            return {
-                ...state,
-                screams: state.screams.filter(scream => scream.screamId !== action.payload.screamId)
-            }
+            index = state.screams.findIndex(scream => scream.screamId === action.payload)
+            console.log(index)
+            const deletedscream = produce(state, draft => {
+                draft.screams.splice(index, 1)
+            })
+            return deletedscream
         case POST_SCREAM:
-            return {
-                ...state,
-                screams: [
-                    action.payload,
-                    ...state.screams.massege
-                ]
-            }
+            nextState = produce(state, draftState => {
+                draftState.screams.unshift(action.payload.message)
+            })
+
+            return nextState
         default:
             return state
     }

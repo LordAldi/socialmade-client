@@ -13,7 +13,7 @@ import MyButton from '../util/MyButton'
 
 
 //icon
-import AddIcon from '@material-ui/icons/Add'
+// import AddIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
 import Notifications from '@material-ui/icons/Notifications'
 export class Navbar extends Component {
