@@ -9,9 +9,7 @@ import Button from '@material-ui/core/Button'
 import MuiLink from '@material-ui/core/Link'
 import  Typography  from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
-import  IconButton  from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
-import Tooltip from '@material-ui/core/Tooltip';
 
 //icons
 import LocationOn from '@material-ui/icons/LocationOn'
@@ -22,6 +20,7 @@ import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 //redux
 import { connect } from 'react-redux'
 import {logoutUser, uploadImage} from '../redux/actions/userActions'
+import MyButton from '../util/MyButton'
 
 
 const styles =(theme)=>({
@@ -101,11 +100,10 @@ export class Profile extends Component {
                         id='imageInput' 
                         onChange={this.handleImageChange} 
                         hidden='hidden'/>
-                        <Tooltip title='Edit Profile Picture'  arrow>
-                            <IconButton onClick ={ this.handleEditPicture} className='button'>
-                                <EditIcon color='primary'/>
-                            </IconButton>
-                        </Tooltip>
+                        
+                        <MyButton tip='Edit Profile Picture' onClick={this.handleEditPicture} btnClassName='button' place='top' arrow>
+                          <EditIcon color='primary'/>
+                        </MyButton>
                     </div>
                     <hr/>
                     <div className='profile-details'>
@@ -134,11 +132,10 @@ export class Profile extends Component {
                         <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
 
                     </div>
-                    <Tooltip title='Logout' placement='top'>
-                      <IconButton onClick={this.handleLogout}>
-                        <KeyboardReturn color='primary'/>
-                      </IconButton>
-                    </Tooltip>
+                    
+                    <MyButton tip='Logout' onClick={this.handleLogout} place='top' arrow>
+                      <KeyboardReturn color='primary'/>
+                    </MyButton>
                     <EditDetails/>
                 </div>
             </Paper>
