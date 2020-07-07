@@ -1,4 +1,4 @@
-import {SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM,STOP_LOADING_UI, SET_SCREAM} from '../types'
+import {SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM, SET_SCREAM} from '../types'
 import produce from "immer"
 const initialState = {
     screams:[],
@@ -26,9 +26,14 @@ export default function(state=initialState, action){
             }
         case LIKE_SCREAM:
         case UNLIKE_SCREAM:
+            
             index = state.screams.findIndex((scream)=>scream.screamId === action.payload.screamId)
             nextState = produce(state, draftState => {
+
                 draftState.screams[index].likeCount = action.payload.likeCount
+                if(state.scream.screamId === action.payload.screamId){
+                    draftState.scream = action.payload
+                }
             })
             return nextState
         case DELETE_SCREAM:

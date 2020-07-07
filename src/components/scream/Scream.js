@@ -14,8 +14,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { Typography } from '@material-ui/core';
 
 import {connect} from 'react-redux'
-import {likeScream, unlikeScream} from '../redux/actions/dataActions'
-import MyButton from '../util/MyButton'
+import {likeScream, unlikeScream} from '../../redux/actions/dataActions'
+import MyButton from '../../util/MyButton'
 
 //icons
 import ChatIcon from '@material-ui/icons/Chat'
@@ -58,11 +58,13 @@ class Scream extends Component {
         user: {authenticated, credentials: {handle}}} = this.props 
         //const classes = this.props.classes
         const likeButton = !authenticated ? (
-            <MyButton tip='Like'>
-                <Link to='/login'>
-                    <FavoriteBorder color='primary'/>
-                </Link>
-            </MyButton>
+            <Link to='/login'>
+                <MyButton tip='Like'>
+                    
+                        <FavoriteBorder color='primary'/>
+                    
+                </MyButton>
+            </Link>
         ): (
             this.likedScream() ? (
                 <MyButton tip='Unlike' onClick={this.unlikeScream}>

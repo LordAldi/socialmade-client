@@ -1,26 +1,27 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
-import MyButton from '../util/MyButton' 
+import MyButton from '../../util/MyButton' 
 import dayjs from 'dayjs'
 import {Link} from 'react-router-dom'
 
 //MUI STUFF
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
 
 import  Typography  from '@material-ui/core/Typography'
 //ICON
-import AddIcon from '@material-ui/icons/Add'
 import CloseIcon from '@material-ui/icons/Close'
 import UnfoldMore from '@material-ui/icons/UnfoldMore'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
+import ChatIcon from '@material-ui/icons/Chat'
 
 import {connect} from 'react-redux'
-import {getScream} from '../redux/actions/dataActions'
-import formCss from '../styles/form.json'
+import {getScream,likeScream, unlikeScream} from '../../redux/actions/dataActions'
+import formCss from '../../styles/form.json'
 
 const styles = {
     ...formCss,
@@ -40,7 +41,17 @@ const styles = {
     closeButton: {
         position: 'absolute',
         left: '90%'
+    },
+    expandButton: {
+        position: 'absolute',
+        left: '90%'
+    },
+    spinnerDiv: {
+        textAlign: 'center',
+        marginTop: 50,
+        marginBottom: 50
     }
+    // body: {marginBottom: 20}
 
 }
 
@@ -56,17 +67,49 @@ class ScreamDialog extends Component {
         // this.props.clearErrors()
         this.setState({open: false})
     }
+    likedScream = () =>{
+        if(this.props.user.likes && this.props.user.likes.find(like => like.screamId === this.props.scream.screamId)){
+            return true
+        } else return false
+    }
+
+    likeScream = () => {
+        this.props.likeScream(this.props.scream.screamId)
+    }
+    unlikeScream = () => {
+        this.props.unlikeScream(this.props.scream.screamId)
+    }
     // handleChange = (event) => {
     //     this.setState({[event.target.name]: event.target.value})
     // }
     render() {
         const {classes, 
-            scream:{screamId, body,createdAt,likeCount,commentCount,userImage, userHandle},
-            UI: {loading}
+            scream:{ body,createdAt,likeCount,commentCount,userImage, userHandle},
+            UI: {loading}, user: {authenticated}
         } =this.props
 
+        const likeButton = !authenticated ? (
+            <MyButton tip='Like'>
+                <Link to='/login'>
+                    <FavoriteBorder color='primary'/>
+                </Link>
+            </MyButton>
+        ): (
+            this.likedScream() ? (
+                <MyButton tip='Unlike' onClick={this.unlikeScream}>
+                    <FavoriteIcon color='primary'/>
+                </MyButton>
+            ): (
+                <MyButton tip='Like' onClick={this.likeScream}>
+                    <FavoriteBorder color='primary'/>
+                </MyButton>
+            )
+        )
+
         const dialogMurkup = loading ? (
-            <CircularProgress size={100}/>
+            <div className={classes.spinnerDiv}>
+                <CircularProgress size={100} thickness={2}/>
+            </div>
         ) : (
             <Grid container spacing={1}>
                 <Grid item sm={5}>
@@ -85,9 +128,15 @@ class ScreamDialog extends Component {
                         {dayjs(createdAt).format(`h:mm a, MMMM DD YYYY`)}
                     </Typography>
                     <hr className={classes.invisibleSeparator}/>
-                    <Typography variant='body1'>
+                    <Typography variant='body1' className={classes.body}>
                         {body}
                     </Typography>
+                    {likeButton}
+                    <span>{likeCount} Likes</span>
+                    <MyButton tip='comments'>
+                        <ChatIcon color='primary'/>
+                    </MyButton>
+                    <span>{commentCount} comments</span>
 
 
                 </Grid>
@@ -124,9 +173,12 @@ ScreamDialog.propsTypes = {
 }
 const mapStateToProps = state => ({
     scream: state.data.scream,
-    UI: state.UI
+    UI: state.UI,
+    user: state.user
 })
 const mapActionsToProps ={
-    getScream
+    getScream,
+    likeScream,
+    unlikeScream
 }
 export default connect(mapStateToProps,mapActionsToProps)(withStyles(styles)(ScreamDialog)) 

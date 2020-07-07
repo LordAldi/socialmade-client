@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
 //redux
 import {connect} from 'react-redux'
-import {editUserDetails} from '../redux/actions/userActions'
+import {editUserDetails} from '../../redux/actions/userActions'
 
 //MUI
 import Button from '@material-ui/core/Button';
@@ -16,8 +16,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 //icons
 import EditIcon from '@material-ui/icons/Edit'
 
-import formCss from '../styles/form.json'
-import MyButton from '../util/MyButton'
+import formCss from '../../styles/form.json'
+import MyButton from '../../util/MyButton'
 
 const styles = (theme) =>({
     ...formCss,

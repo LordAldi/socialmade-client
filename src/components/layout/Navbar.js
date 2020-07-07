@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom'
 
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import PostScream from './PostScream'
+import PostScream from '../scream/PostScream'
 // MUI STUFF
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 
-import MyButton from '../util/MyButton'
+import MyButton from '../../util/MyButton'
 
 
 //icon

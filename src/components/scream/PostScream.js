@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
-import MyButton from '../util/MyButton'
+import MyButton from '../../util/MyButton'
 //redux
 import {connect} from 'react-redux'
-import {postScream, clearErrors} from '../redux/actions/dataActions'
+import {postScream, clearErrors} from '../../redux/actions/dataActions'
 
 
 //MUI
@@ -17,7 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import AddIcon from '@material-ui/icons/Add'
 import CloseIcon from '@material-ui/icons/Close'
 
-import formCss from '../styles/form.json'
+import formCss from '../../styles/form.json'
 
 const styles = {
     ...formCss,
