@@ -1,4 +1,4 @@
-import {SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM, SET_SCREAM} from '../types'
+import {SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM, SET_SCREAM,SUBMIT_COMMENT} from '../types'
 import produce from "immer"
 const initialState = {
     screams:[],
@@ -49,7 +49,11 @@ export default function(state=initialState, action){
             })
 
             return nextState
-        
+        case SUBMIT_COMMENT:
+            nextState = produce(state, draftState => {
+                draftState.scream.comments.unshift(action.payload)
+            })
+            return nextState
 
         default:
             return state

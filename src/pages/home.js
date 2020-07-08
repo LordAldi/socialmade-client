@@ -21,12 +21,13 @@ export class home extends Component {
         ):<p>loading...</p>
         return (
            <Grid container spacing={6}>
-               <Grid item sm={8} xs={12}>
-                    {recentScreamMarkup}
-               </Grid>
                <Grid item sm={4} xs={12}>
                    <Profile/>
                </Grid>
+               <Grid item sm={8} xs={12}>
+                    {recentScreamMarkup}
+               </Grid>
+               
            </Grid>
         )
     }

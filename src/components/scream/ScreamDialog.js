@@ -4,6 +4,8 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import MyButton from '../../util/MyButton' 
 import dayjs from 'dayjs'
 import {Link} from 'react-router-dom'
+import Comments from './Comments'
+import CommentForm from './CommentForm'
 
 //MUI STUFF
 import Dialog from '@material-ui/core/Dialog';
@@ -20,15 +22,11 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 import ChatIcon from '@material-ui/icons/Chat'
 
 import {connect} from 'react-redux'
-import {getScream,likeScream, unlikeScream} from '../../redux/actions/dataActions'
+import {getScream,likeScream, unlikeScream, clearErrors} from '../../redux/actions/dataActions'
 import formCss from '../../styles/form.json'
 
 const styles = {
     ...formCss,
-    invisibleSeparator: {
-        border: 'none',
-        margin: 4
-    },
     profileImage: {
         maxWidth: 200,
         height: 200,
@@ -66,6 +64,7 @@ class ScreamDialog extends Component {
     handleClose = () => {
         // this.props.clearErrors()
         this.setState({open: false})
+        this.props.clearErrors()
     }
     likedScream = () =>{
         if(this.props.user.likes && this.props.user.likes.find(like => like.screamId === this.props.scream.screamId)){
@@ -84,7 +83,7 @@ class ScreamDialog extends Component {
     // }
     render() {
         const {classes, 
-            scream:{ body,createdAt,likeCount,commentCount,userImage, userHandle},
+            scream:{ body,createdAt,likeCount,commentCount,userImage, userHandle,comments},
             UI: {loading}, user: {authenticated}
         } =this.props
 
@@ -133,13 +132,16 @@ class ScreamDialog extends Component {
                     </Typography>
                     {likeButton}
                     <span>{likeCount} Likes</span>
-                    <MyButton tip='comments'>
+                    <MyButton tip='comments' >
                         <ChatIcon color='primary'/>
                     </MyButton>
                     <span>{commentCount} comments</span>
 
 
                 </Grid>
+                <hr className={classes.visibleSeparator}/> 
+                <CommentForm screamId={this.props.screamId} />
+                <Comments comments={comments} />
             </Grid>
         )
 
@@ -179,6 +181,7 @@ const mapStateToProps = state => ({
 const mapActionsToProps ={
     getScream,
     likeScream,
-    unlikeScream
+    unlikeScream,
+    clearErrors
 }
 export default connect(mapStateToProps,mapActionsToProps)(withStyles(styles)(ScreamDialog)) 
