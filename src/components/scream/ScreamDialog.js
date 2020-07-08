@@ -16,7 +16,6 @@ import Grid from '@material-ui/core/Grid'
 import  Typography  from '@material-ui/core/Typography'
 //ICON
 import CloseIcon from '@material-ui/icons/Close'
-import UnfoldMore from '@material-ui/icons/UnfoldMore'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 import ChatIcon from '@material-ui/icons/Chat'
@@ -165,8 +164,8 @@ class ScreamDialog extends Component {
 
         return(
             <Fragment>
-                <MyButton onClick={this.handleOpen} tip='Expand Scream' tipClassName={classes.expandButton}>
-                    <UnfoldMore color='primary'/>
+                <MyButton onClick={this.handleOpen} tip='Expand Scream'>
+                    <ChatIcon color='primary'/>
                 </MyButton>
                 <Dialog
                 open={this.state.open}

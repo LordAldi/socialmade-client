@@ -24,6 +24,7 @@ import axios from 'axios';
 
 
 const theme =createMuiTheme(themeFile)
+axios.defaults.baseURL= 'https://asia-northeast1-socialmed-14bdb.cloudfunctions.net/api'
 
 const token = localStorage.FBIdToken;
 if(token){

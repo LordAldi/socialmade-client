@@ -10,6 +10,7 @@ import MuiLink from '@material-ui/core/Link'
 import  Typography  from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import EditIcon from '@material-ui/icons/Edit'
+import ProfileSkeleton from '../../util/ProfileSkeleton'
 
 //icons
 import LocationOn from '@material-ui/icons/LocationOn'
@@ -153,7 +154,7 @@ export class Profile extends Component {
                     </Button>
                 </div>
             </Paper>
-        )):(<p>Loading...</p>)
+        )):(<ProfileSkeleton/>)
 
         return profileMarkup;
         

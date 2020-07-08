@@ -5,7 +5,7 @@ import { Button, Grid, TextField } from '@material-ui/core'
 import formCss from '../../styles/form.json'
 import {connect} from 'react-redux'
 import {submitComment} from '../../redux/actions/dataActions'
-import { SET_ERRORS } from '../../redux/types'
+
 
 //MUI STUFF
 const styles = {

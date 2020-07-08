@@ -11,14 +11,13 @@ import ScreamDialog from './ScreamDialog'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 
 import {connect} from 'react-redux'
 import {likeScream, unlikeScream} from '../../redux/actions/dataActions'
 import MyButton from '../../util/MyButton'
 
 //icons
-import ChatIcon from '@material-ui/icons/Chat'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
@@ -29,11 +28,20 @@ const styles = {
         marginBottom: 20
     },
     image: {
-        minWidth: 200
+        minWidth: 100,
+        maxHeight:100,
+        maxWidth: "30%",
+        borderRadius: 0.5
     },
     content: {
         padding: 25,
-        objectFit: 'cover'
+        objectFit: 'cover',
+        minWidth: 300
+    }, 
+    mainText: {
+        fontSize: "0.9rem",
+        marginRight: "5%",
+        width: '80%'
     }
 }
 
@@ -100,16 +108,24 @@ class Scream extends Component {
                     <Typography variant='body2' color="textSecondary">
                         {dayjs(createdAt).fromNow()}
                     </Typography>
-                    <Typography variant="body1">
+                    <Typography variant="body1" className={classes.mainText}>
                         {body}
                     </Typography>
-                    {likeButton}
-                    <span>{likeCount} Likes</span>
-                    <MyButton tip='comments'>
-                        <ChatIcon color='primary'/>
-                    </MyButton>
-                    <span>{commentCount} comments</span>
-                    <ScreamDialog screamId={screamId} userHandle={userHandle} openDialog={this.props.openDialog}/>
+                    <Grid container >
+                        <Grid item xs={12} sm={5}>
+                        {likeButton}
+                        <span>{likeCount} Likes</span>
+                        </Grid>
+                        
+                        <Grid item sm={6} xs={12}>
+                            <ScreamDialog screamId={screamId} userHandle={userHandle} openDialog={this.props.openDialog}/>
+                            <span>{commentCount} comments</span>
+                        </Grid>
+                        
+                        
+                        
+                    </Grid>
+                    
                 </CardContent>
             </Card>
             
